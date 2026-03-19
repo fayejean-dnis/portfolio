@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Denis Faye — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:  #1B4332;
+    --moss:    #2D6A4F;
+    --fern:    #40916C;
+    --sage:    #74C69D;
+    --mist:    #D8F3DC;
+    --sand:    #F5EDD6;
+    --cream:   #FAFAF7;
+    --ink:     #1C2B1E;
+    --mid:     #4A5E50;
+    --light:   #8A9E8F;
+    --white:   #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: rgba(27,67,50,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(116,198,157,0.12);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--sage); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--sage); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; background: var(--forest);
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative; overflow: hidden;
+  }
+  .hero-orb {
+    position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+  }
+  .orb1 { width: 500px; height: 500px; background: rgba(64,145,108,0.18); top: -100px; left: -100px; }
+  .orb2 { width: 400px; height: 400px; background: rgba(116,198,157,0.10); bottom: 0; right: 100px; }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem 6rem; position: relative; z-index: 2;
+  }
+  .hero-tag {
+    display: inline-block; margin-bottom: 1.5rem;
+    padding: 0.35rem 1rem; border-radius: 20px;
+    background: rgba(116,198,157,0.12); border: 1px solid rgba(116,198,157,0.25);
+    color: var(--sage); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 4.5vw, 4rem); color: var(--white); line-height: 1.1;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-name em { color: var(--sage); font-style: italic; }
+  .hero-sub {
+    margin-top: 1rem; font-size: 1rem; color: rgba(255,255,255,0.55); font-weight: 300; line-height: 1.6;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-desc {
+    margin-top: 1.5rem; font-size: 0.92rem; color: rgba(255,255,255,0.45); line-height: 1.85; max-width: 460px;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; animation: fadeUp 0.8s 0.6s ease both; }
+  .btn { padding: 0.75rem 2rem; border-radius: 4px; font-size: 0.87rem; font-weight: 500; text-decoration: none; transition: all 0.25s; font-family: 'DM Sans', sans-serif; border: none; cursor: pointer; }
+  .btn-primary { background: var(--fern); color: var(--white); }
+  .btn-primary:hover { background: var(--sage); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(64,145,108,0.4); }
+  .btn-outline { background: transparent; color: var(--sage); border: 1px solid rgba(116,198,157,0.35); }
+  .btn-outline:hover { background: rgba(116,198,157,0.08); transform: translateY(-2px); }
+
+  .hero-right {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 5rem 4rem 2rem; position: relative; z-index: 2; gap: 1.5rem;
+  }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; animation: fadeUp 0.8s 0.5s ease both; }
+  .stat-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(116,198,157,0.12);
+    border-radius: 12px; padding: 1.4rem; transition: all 0.3s;
+  }
+  .stat-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(116,198,157,0.3); transform: translateY(-3px); }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--sage); }
+  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 0.2rem; }
+  .hero-contacts { display: flex; flex-direction: column; gap: 0.55rem; animation: fadeUp 0.8s 0.7s ease both; }
+  .cinfo { display: flex; align-items: center; gap: 0.75rem; font-size: 0.87rem; color: rgba(255,255,255,0.5); }
+  .cinfo-icon { color: var(--sage); width: 18px; text-align: center; }
+
+  /* SECTIONS */
+  section { padding: 6rem 0; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  .sec-label { font-size: 0.74rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--fern); font-weight: 600; margin-bottom: 0.4rem; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,3vw,2.4rem); color: var(--forest); line-height: 1.2; margin-bottom: 0.9rem; }
+  .sec-line { width: 44px; height: 3px; background: var(--fern); border-radius: 2px; margin-bottom: 3rem; }
+
+  /* ABOUT */
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { color: var(--mid); line-height: 1.85; font-size: 0.95rem; margin-bottom: 1.2rem; }
+  .lang-tags { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .lang-tag { padding: 0.38rem 1rem; border-radius: 20px; font-size: 0.81rem; background: var(--mist); color: var(--forest); font-weight: 500; }
+  .skills-group { margin-bottom: 2rem; }
+  .sg-title { font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fern); font-weight: 600; margin-bottom: 0.9rem; }
+  .skill-row { margin-bottom: 0.85rem; }
+  .skill-meta { display: flex; justify-content: space-between; font-size: 0.84rem; color: var(--ink); margin-bottom: 0.35rem; }
+  .skill-meta span:last-child { color: var(--light); font-size: 0.76rem; }
+  .skill-track { height: 4px; background: var(--mist); border-radius: 2px; overflow: hidden; }
+  .skill-fill { height: 100%; background: linear-gradient(90deg, var(--moss), var(--sage)); border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+
+  /* PROJECTS */
+  #projects { background: var(--cream); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; }
+  .proj-card {
+    background: var(--white); border-radius: 14px; overflow: hidden;
+    border: 1px solid rgba(27,67,50,0.07); transition: all 0.3s;
+  }
+  .proj-card:hover { transform: translateY(-6px); box-shadow: 0 18px 44px rgba(27,67,50,0.11); border-color: rgba(64,145,108,0.2); }
+  .proj-thumb {
+    height: 150px; display: flex; align-items: center; justify-content: center;
+    font-size: 3.2rem; position: relative;
+  }
+  .proj-thumb::before { content: ''; position: absolute; inset: 0; }
+  .t1::before { background: linear-gradient(135deg,#1B4332,#40916C); }
+  .t2::before { background: linear-gradient(135deg,#2C3E50,#3B7A8A); }
+  .t3::before { background: linear-gradient(135deg,#5C4033,#9B7355); }
+  .t4::before { background: linear-gradient(135deg,#2D3561,#5B73C0); }
+  .t5::before { background: linear-gradient(135deg,#1A3C3C,#2E8B6B); }
+  .t6::before { background: linear-gradient(135deg,#3B2A1A,#8B6B3A); }
+  .proj-thumb span { position: relative; z-index: 1; }
+  .proj-body { padding: 1.4rem; }
+  .proj-tags { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .proj-tag { padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; font-weight: 500; background: var(--mist); color: var(--forest); }
+  .proj-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--forest); line-height: 1.3; margin-bottom: 0.55rem; }
+  .proj-desc { font-size: 0.83rem; color: var(--mid); line-height: 1.7; }
+  .proj-foot { margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--mist); display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; color: var(--light); }
+  .proj-pub { color: var(--fern); font-weight: 600; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--white); }
+  .timeline { position: relative; padding-left: 2px; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--fern), var(--mist)); }
+  .tl-item { padding-left: 2.4rem; margin-bottom: 2.8rem; position: relative; }
+  .tl-dot { position: absolute; left: -7px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--fern); border: 2.5px solid var(--white); box-shadow: 0 0 0 3px rgba(64,145,108,0.18); }
+  .tl-date { font-size: 0.76rem; color: var(--fern); font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .tl-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--forest); margin-bottom: 0.15rem; }
+  .tl-org { font-size: 0.83rem; color: var(--light); font-style: italic; margin-bottom: 0.9rem; }
+  .tl-list { list-style: none; }
+  .tl-list li { position: relative; padding-left: 1.1rem; font-size: 0.87rem; color: var(--mid); line-height: 1.7; margin-bottom: 0.35rem; }
+  .tl-list li::before { content: '→'; position: absolute; left: 0; color: var(--fern); font-size: 0.78rem; top: 2px; }
+  .tl-badge { display: inline-block; margin-top: 0.7rem; padding: 0.28rem 0.8rem; border-radius: 20px; background: var(--mist); color: var(--forest); font-size: 0.74rem; font-weight: 600; }
+
+  /* PUBLICATIONS */
+  #publications { background: var(--forest); }
+  #publications .sec-title { color: var(--white); }
+  #publications .sec-label { color: var(--sage); }
+  #publications .sec-line { background: var(--sage); }
+  .pub-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; }
+  .pub-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(116,198,157,0.12); border-radius: 12px; padding: 2rem; transition: all 0.3s; }
+  .pub-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(116,198,157,0.3); transform: translateY(-4px); }
+  .pub-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .pub-journal { font-size: 0.7rem; color: var(--sage); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.85rem; }
+  .pub-title { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--white); line-height: 1.55; margin-bottom: 1rem; }
+  .pub-year { font-size: 0.76rem; color: rgba(255,255,255,0.35); }
+
+  /* EDUCATION */
+  #education { background: var(--sand); }
+  .edu-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; }
+  .edu-card { background: var(--white); border-radius: 12px; padding: 1.8rem; border-bottom: 3px solid var(--fern); transition: all 0.3s; }
+  .edu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(27,67,50,0.09); }
+  .edu-year { font-size: 0.76rem; color: var(--fern); font-weight: 600; margin-bottom: 0.55rem; }
+  .edu-degree { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--forest); line-height: 1.35; margin-bottom: 0.35rem; }
+  .edu-school { font-size: 0.81rem; color: var(--light); font-style: italic; margin-bottom: 0.9rem; }
+  .edu-list { list-style: none; }
+  .edu-list li { font-size: 0.81rem; color: var(--mid); padding: 0.22rem 0; border-bottom: 1px solid var(--mist); line-height: 1.5; }
+  .edu-list li:last-child { border: none; }
+
+  /* AWARDS */
+  #awards { background: var(--white); }
+  .awards-flex { display: flex; flex-wrap: wrap; gap: 1.4rem; }
+  .award-card { flex: 1; min-width: 200px; border-radius: 12px; padding: 1.6rem; background: var(--cream); border: 1px solid rgba(27,67,50,0.07); transition: all 0.3s; }
+  .award-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(27,67,50,0.08); }
+  .award-icon { font-size: 1.7rem; margin-bottom: 0.7rem; }
+  .award-title { font-family: 'Playfair Display', serif; font-size: 0.97rem; color: var(--forest); margin-bottom: 0.3rem; }
+  .award-org { font-size: 0.78rem; color: var(--light); }
+
+  /* CONTACT */
+  #contact { background: var(--forest); text-align: center; }
+  #contact .sec-title { color: var(--white); }
+  #contact .sec-label { color: var(--sage); }
+  #contact .sec-line { background: var(--sage); margin-left: auto; margin-right: auto; }
+  .contact-grid { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2.5rem; }
+  .ccard { background: rgba(255,255,255,0.07); border: 1px solid rgba(116,198,157,0.12); border-radius: 12px; padding: 1.5rem 2.2rem; min-width: 170px; transition: all 0.3s; }
+  .ccard:hover { background: rgba(255,255,255,0.12); transform: translateY(-3px); }
+  .ccard-icon { font-size: 1.5rem; margin-bottom: 0.45rem; }
+  .ccard-label { font-size: 0.7rem; color: var(--sage); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; }
+  .ccard-val { font-size: 0.88rem; color: rgba(255,255,255,0.75); }
+
+  /* FOOTER */
+  footer { background: var(--ink); text-align: center; padding: 1.4rem; font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+  .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  @media (max-width:768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 5.5rem 1.5rem 3rem; }
+    .about-grid, .projects-grid, .pub-grid, .edu-grid { grid-template-columns: 1fr; }
+    .about-grid { gap: 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Jean Denis Faye</div>
+  <ul class="nav-links">
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#experience">Expériences</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#education">Formation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-left">
+    <span class="hero-tag">🌿 Recherche contrat d'apprentissage 2025–2026</span>
+    <h1 class="hero-name">Jean Denis<br><em>Faye</em></h1>
+    <p class="hero-sub">Data Scientist · Agro-Climatologie · Biodiversité & Environnement</p>
+    <p class="hero-desc">Étudiant en Master GeoData (Université d'Orléans) avec une double expertise en science des données et en agro-climatologie. 3 publications scientifiques internationales, expériences sur 3 pays.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+      <a href="#contact" class="btn btn-outline">Me contacter</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stats-grid">
+      <div class="stat-card"><div style="font-size:1.7rem;margin-bottom:.6rem">📄</div><div class="stat-num">3</div><div class="stat-label">Publications scientifiques</div></div>
+      <div class="stat-card"><div style="font-size:1.7rem;margin-bottom:.6rem">🌍</div><div class="stat-num">3</div><div class="stat-label">Pays d'expérience</div></div>
+      <div class="stat-card"><div style="font-size:1.7rem;margin-bottom:.6rem">🏆</div><div class="stat-num">4+</div><div class="stat-label">Prix & distinctions</div></div>
+    </div>
+    <div class="hero-contacts">
+      <div class="cinfo"><span class="cinfo-icon">📞</span><span>+33 7 46 46 57 01</span></div>
+      <div class="cinfo"><span class="cinfo-icon">✉️</span><span>fayedenisjean@gmail.com</span></div>
+      <div class="cinfo"><span class="cinfo-icon">📍</span><span>2 rue de Montargis, Orléans</span></div>
+      <div class="cinfo"><span class="cinfo-icon">🚗</span><span>Permis B — Véhicule personnel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="sec-label">À propos</div>
+    <h2 class="sec-title">Profil & Compétences</h2>
+    <div class="sec-line"></div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Étudiant en Master 1 GeoData à l'Université d'Orléans, je me spécialise à l'intersection de la data science et des sciences environnementales. Mon parcours international — du Sénégal à la Côte d'Ivoire jusqu'en France — m'a permis de développer une double expertise rare : l'analyse de données géospatiales complexes et la compréhension profonde des écosystèmes tropicaux.</p>
+        <p>Mes recherches portent sur la <strong>séquestration du carbone par les mangroves</strong>, la <strong>télédétection multi-temporelle</strong> et la <strong>modélisation agro-climatique</strong>. Auteur de 3 publications dans des revues internationales, je cherche un contrat d'apprentissage pour mettre la data au service de la transition écologique.</p>
+        <div class="lang-tags">
+          <span class="lang-tag">🇫🇷 Français — natif</span>
+          <span class="lang-tag">🇬🇧 Anglais — B1</span>
+          <span class="lang-tag">🇪🇸 Espagnol — A1</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="skills-group">
+          <div class="sg-title">Programmation & Analyse</div>
+          <div class="skill-row"><div class="skill-meta"><span>Python (Pandas, Matplotlib, Seaborn)</span><span>85%</span></div><div class="skill-track"><div class="skill-fill" data-w="85"></div></div></div>
+          <div class="skill-row"><div class="skill-meta"><span>RStudio / R</span><span>75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
+          <div class="skill-row"><div class="skill-meta"><span>SQL / Excel</span><span>68%</span></div><div class="skill-track"><div class="skill-fill" data-w="68"></div></div></div>
+        </div>
+        <div class="skills-group">
+          <div class="sg-title">SIG & Télédétection</div>
+          <div class="skill-row"><div class="skill-meta"><span>QGIS</span><span>82%</span></div><div class="skill-track"><div class="skill-fill" data-w="82"></div></div></div>
+          <div class="skill-row"><div class="skill-meta"><span>ArcGIS Pro</span><span>72%</span></div><div class="skill-track"><div class="skill-fill" data-w="72"></div></div></div>
+          <div class="skill-row"><div class="skill-meta"><span>ENVI Classic — Landsat / Sentinel</span><span>68%</span></div><div class="skill-track"><div class="skill-fill" data-w="68"></div></div></div>
+        </div>
+        <div class="skills-group">
+          <div class="sg-title">Instrumentation & Bases de données</div>
+          <div class="skill-row"><div class="skill-meta"><span>Arduino (CO₂ Flux Chamber)</span><span>58%</span></div><div class="skill-track"><div class="skill-fill" data-w="58"></div></div></div>
+          <div class="skill-row"><div class="skill-meta"><span>DBeaver / LibreOffice Base</span><span>60%</span></div><div class="skill-track"><div class="skill-fill" data-w="60"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="sec-label">Réalisations</div>
+    <h2 class="sec-title">Projets clés</h2>
+    <div class="sec-line"></div>
+    <div class="projects-grid">
+      <div class="proj-card reveal">
+        <div class="proj-thumb t1"><span>🌊</span></div>
+        <div class="proj-body">
+          <div class="proj-tags"><span class="proj-tag">Télédétection</span><span class="proj-tag">QGIS</span><span class="proj-tag">Landsat/Sentinel</span></div>
+          <h3 class="proj-title">Dynamique spatio-temporelle des mangroves de Fresco</h3>
+          <p class="proj-desc">Analyse multi-temporelle sur 33 ans (1990–2023). Classification supervisée, calcul NDVI/NDMI, cartographie de l'évolution des mangroves de l'estuaire de Fresco, Côte d'Ivoire.</p>
+          <div class="proj-foot"><span>Fév.–Juil. 2024</span><span class="proj-pub">📄 Publié</span></div>
+        </div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:.1s">
+        <div class="proj-thumb t2"><span>🌿</span></div>
+        <div class="proj-body">
+          <div class="proj-tags"><span class="proj-tag">Carbone</span><span class="proj-tag">Allométrie</span><span class="proj-tag">Terrain</span></div>
+          <h3 class="proj-title">Séquestration carbone — Mangroves tropicales</h3>
+          <p class="proj-desc">Estimation de la biomasse aérienne et du stock de carbone par équations allométriques et relevés terrain. Contribution à la compréhension du rôle des mangroves comme puits de carbone.</p>
+          <div class="proj-foot"><span>2024</span><span class="proj-pub">📄 e-ISSN 2790-3230</span></div>
+        </div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:.2s">
+        <div class="proj-thumb t3"><span>⚡</span></div>
+        <div class="proj-body">
+          <div class="proj-tags"><span class="proj-tag">Arduino</span><span class="proj-tag">IoT</span><span class="proj-tag">GES</span></div>
+          <h3 class="proj-title">CO₂ Flux Chamber — Capteur d'émissions</h3>
+          <p class="proj-desc">Conception et programmation d'une chambre à flux CO₂ autonome pour la mesure d'émissions de gaz à effet de serre in situ. Affichage temps réel, calibration et enregistrement des données.</p>
+          <div class="proj-foot"><span>2025</span><span class="proj-pub">🔬 Master GeoData</span></div>
+        </div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:.1s">
+        <div class="proj-thumb t4"><span>📊</span></div>
+        <div class="proj-body">
+          <div class="proj-tags"><span class="proj-tag">RStudio</span><span class="proj-tag">Statistiques</span><span class="proj-tag">Agronomie</span></div>
+          <h3 class="proj-title">Analyses statistiques — Expérimentations maraîchères</h3>
+          <p class="proj-desc">Analyses statistiques sous RStudio pour évaluer l'effet de traitements biologiques sur la croissance et la productivité maraîchère. Résultats valorisés dans 2 publications scientifiques.</p>
+          <div class="proj-foot"><span>2024–2025</span><span class="proj-pub">📄 WJARR / GASJMS</span></div>
+        </div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:.2s">
+        <div class="proj-thumb t5"><span>🗺️</span></div>
+        <div class="proj-body">
+          <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Séries temporelles</span><span class="proj-tag">SIG</span></div>
+          <h3 class="proj-title">Modélisation géospatiale & séries temporelles</h3>
+          <p class="proj-desc">Modélisation statistique et interprétation de séries temporelles géologiques et environnementales avec Python. Traitement multi-sources, analyse prédictive et visualisation cartographique.</p>
+          <div class="proj-foot"><span>2025 — en cours</span><span class="proj-pub">🎓 Master GeoData</span></div>
+        </div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:.3s">
+        <div class="proj-thumb t6"><span>🌱</span></div>
+        <div class="proj-body">
+          <div class="proj-tags"><span class="proj-tag">Agronomie</span><span class="proj-tag">Intercropping</span><span class="proj-tag">Sénégal</span></div>
+          <h3 class="proj-title">Association sésame / niébé — Bambey, Sénégal</h3>
+          <p class="proj-desc">Évaluation des bénéfices biologiques de l'association sésame–niébé sous conditions pluviales. Analyse de rendement, modélisation agronomique et valorisation scientifique. Licence ISFAR.</p>
+          <div class="proj-foot"><span>2019–2022</span><span class="proj-pub">🎓 Univ. Alioune Diop</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="sec-label">Parcours</div>
+    <h2 class="sec-title">Expériences professionnelles</h2>
+    <div class="sec-line"></div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Fév. – Avr. 2025</div>
+        <h3 class="tl-title">Stage — Global Green Growth Institute (GGGI)</h3>
+        <div class="tl-org">GGGI, Dakar, Sénégal</div>
+        <ul class="tl-list">
+          <li>Rédaction de notes techniques et rapports sur les politiques environnementales et livrables de l'Institut.</li>
+          <li>Participation à des missions terrain et collaboration avec des partenaires locaux sur la gestion des ressources naturelles.</li>
+          <li>Appui à l'élaboration de stratégies de croissance verte et de développement durable.</li>
+        </ul>
+        <span class="tl-badge">🌍 Politique environnementale</span>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Fév. – Juil. 2024</div>
+        <h3 class="tl-title">Stage de Recherche — Mangroves & Séquestration carbone</h3>
+        <div class="tl-org">CEA-CCBAD, Université Félix Houphouët-Boigny, Abidjan, Côte d'Ivoire</div>
+        <ul class="tl-list">
+          <li>Analyse multi-temporelle des mangroves de l'estuaire de Fresco (1990–2023) via images Landsat et Sentinel.</li>
+          <li>Traitements SIG : prétraitement, classification supervisée, calcul NDVI/NDMI.</li>
+          <li>Estimation de la biomasse aérienne et du stock carbone par équations allométriques et relevés terrain.</li>
+          <li>Rédaction et publication dans Écosystèmes et Paysages, 5(1):1–18, e-ISSN 2790-3230.</li>
+        </ul>
+        <span class="tl-badge">📄 1 publication internationale</span>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2024 – 2025</div>
+        <h3 class="tl-title">Préparation de données & Rédaction scientifique</h3>
+        <div class="tl-org">ISFAR, Université Alioune Diop, Sénégal</div>
+        <ul class="tl-list">
+          <li>Collecte, organisation et analyse de données issues d'expérimentations maraîchères.</li>
+          <li>Analyses statistiques sous RStudio : évaluation de traitements biologiques sur croissance et productivité.</li>
+          <li>Co-auteur de 2 publications : digestat de cactus / gombo (WJARR 2025) ; caractérisation du concombre (GASJMS).</li>
+        </ul>
+        <span class="tl-badge">📄 2 publications co-signées</span>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2020 – 2022</div>
+        <h3 class="tl-title">Autres stages terrain</h3>
+        <div class="tl-org">Côte d'Ivoire & Sénégal</div>
+        <ul class="tl-list">
+          <li><strong>Eckolab World Wide</strong> — Immersion en milieu professionnel, Côte d'Ivoire (2 mois).</li>
+          <li><strong>SOS Forêts</strong> — Protection et restauration des mangroves, Côte d'Ivoire (1 mois).</li>
+          <li><strong>SENFIN (Sénégal-Finlande)</strong> — Production végétale et suivi de culture, Sénégal (2 mois).</li>
+        </ul>
+        <span class="tl-badge">🌿 Terrain & Conservation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="sec-label">Recherche</div>
+    <h2 class="sec-title">Publications scientifiques</h2>
+    <div class="sec-line"></div>
+    <div class="pub-grid">
+      <div class="pub-card reveal">
+        <div class="pub-icon">🌊</div>
+        <div class="pub-journal">Écosystèmes et Paysages — 5(1):1–18, 2024 · e-ISSN 2790-3230</div>
+        <p class="pub-title">Dynamiques spatio-temporelles et contribution à la séquestration du carbone des mangroves dans le contexte du changement climatique : Cas de l'estuaire de Fresco, Sud-Ouest de la Côte d'Ivoire.</p>
+        <div class="pub-year">2024 · Premier auteur</div>
+      </div>
+      <div class="pub-card reveal" style="transition-delay:.15s">
+        <div class="pub-icon">🌱</div>
+        <div class="pub-journal">World J. Advanced Research & Reviews — 26(03):2256–2266, 2025</div>
+        <p class="pub-title">Agronomic potential of cactus digestate: Effects on the growth and productivity of okra (Abelmoschus esculentus).</p>
+        <div class="pub-year">2025 · Co-auteur</div>
+      </div>
+      <div class="pub-card reveal" style="transition-delay:.3s">
+        <div class="pub-icon">🥒</div>
+        <div class="pub-journal">GASJMS — Global Academic & Scientific Journal — 3(7):1–7, 2025</div>
+        <p class="pub-title">Morphological Characterization of Four Varieties of Domesticated Cucumber (Cucumis sativus L.) in the rainy season in Bambey, Senegal.</p>
+        <div class="pub-year">2025 · Co-auteur</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="sec-label">Formation</div>
+    <h2 class="sec-title">Parcours académique</h2>
+    <div class="sec-line"></div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-year">2025 – Présent</div>
+        <h3 class="edu-degree">Master 1 GeoData — Sciences de la Terre, Planètes & Environnement</h3>
+        <div class="edu-school">OSUC, Université d'Orléans, France</div>
+        <ul class="edu-list">
+          <li>Modélisation statistique de séries temporelles — Python</li>
+          <li>Méthodes statistiques avancées : validation, prédiction</li>
+          <li>Projet CO₂ Flux Chamber (Arduino)</li>
+        </ul>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:.15s">
+        <div class="edu-year">2022 – 2024</div>
+        <h3 class="edu-degree">Master Changement Climatique, Biodiversité & Services Écosystémiques</h3>
+        <div class="edu-school">CEA-CCBAD, Univ. Félix Houphouët-Boigny, Côte d'Ivoire</div>
+        <ul class="edu-list">
+          <li>Analyse spatio-temporelle des mangroves — télédétection</li>
+          <li>Estimation carbone — équations allométriques</li>
+          <li>1 publication internationale</li>
+        </ul>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:.3s">
+        <div class="edu-year">2019 – 2022</div>
+        <h3 class="edu-degree">Ingénieur des Travaux en Agriculture (Licence)</h3>
+        <div class="edu-school">ISFAR, Université Alioune Diop, Sénégal</div>
+        <ul class="edu-list">
+          <li>Association sésame / niébé — conditions pluviales</li>
+          <li>Analyse de rendement et modélisation agronomique</li>
+          <li>Certificat Anglais B1 — CAPLA</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="container">
+    <div class="sec-label">Distinctions</div>
+    <h2 class="sec-title">Prix & Programmes d'excellence</h2>
+    <div class="sec-line"></div>
+    <div class="awards-flex">
+      <div class="award-card reveal"><div class="award-icon">🏆</div><div class="award-title">Meilleur Entrepreneur en Côte d'Ivoire</div><div class="award-org">AUF — Mon Idée Mon Entreprise, 2023</div></div>
+      <div class="award-card reveal" style="transition-delay:.1s"><div class="award-icon">🏆</div><div class="award-title">Meilleur Entrepreneur de l'Université</div><div class="award-org">Marathon Entreprendre — Univ. Alioune Diop, 2022</div></div>
+      <div class="award-card reveal" style="transition-delay:.2s"><div class="award-icon">🌍</div><div class="award-title">Orange Corners Sénégal</div><div class="award-org">Programme d'excellence entrepreneuriale, 2021</div></div>
+      <div class="award-card reveal" style="transition-delay:.3s"><div class="award-icon">🚀</div><div class="award-title">Startup Paris Région International</div><div class="award-org">Programme d'accélération international, 2020</div></div>
+      <div class="award-card reveal" style="transition-delay:.4s"><div class="award-icon">📜</div><div class="award-title">Certificat Développement Durable</div><div class="award-org">IFDD — Institut de la Francophonie, 2023</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-label">Contact</div>
+    <h2 class="sec-title">Travaillons ensemble</h2>
+    <div class="sec-line"></div>
+    <p style="color:rgba(255,255,255,0.5);font-size:0.95rem;max-width:500px;margin:0 auto;line-height:1.7;">À la recherche d'un contrat d'apprentissage pour 2025–2026 alliant data science et expertise agro-climatique.</p>
+    <div class="contact-grid">
+      <div class="ccard"><div class="ccard-icon">📞</div><div class="ccard-label">Téléphone</div><div class="ccard-val">+33 7 46 46 57 01</div></div>
+      <div class="ccard"><div class="ccard-icon">✉️</div><div class="ccard-label">Email</div><div class="ccard-val">fayedenisjean@gmail.com</div></div>
+      <div class="ccard"><div class="ccard-icon">📍</div><div class="ccard-label">Localisation</div><div class="ccard-val">Orléans, France</div></div>
+      <div class="ccard"><div class="ccard-icon">🚗</div><div class="ccard-label">Mobilité</div><div class="ccard-val">Permis B — Mobile</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 Jean Denis Faye — Data Scientist · Agro-Climatologie · Biodiversité</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const skillObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('#about').forEach(s => skillObs.observe(s));
+</script>
+</body>
+</html>
